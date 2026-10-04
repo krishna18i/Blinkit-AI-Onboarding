@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { 
+            font-family: 'Inter', sans-serif; 
+            padding: 15px; 
+            background: #f4f6f8; 
+            margin: 0;
+            color: #1c1c1c;
+        }
+        .main-logo {
+    width: 72px;
+    height: 72px;
+    border-radius: 12px;
+    margin-bottom: 10px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+        .header {
+            background: #f8cb46; /* Blinkit Yellow */
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            text-align: center;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+        .header h2 { margin: 0; font-size: 18px; font-weight: 700; color: #000; }
+        .header p { margin: 4px 0 0 0; font-size: 12px; color: #333; }
+        
+        .upload-section {
+            background: #fff;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+        
+        input[type="file"] {
+            width: 100%;
+            padding: 8px 0;
+            font-size: 13px;
+        }
+
+        .blinkit-btn { 
+            background: #000; 
+            color: #fff;
+            border: none; 
+            padding: 12px; 
+            width: 100%; 
+            font-weight: 600; 
+            cursor: pointer; 
+            margin-top: 10px; 
+            border-radius: 6px; 
+            transition: background 0.2s;
+        }
+        .blinkit-btn:hover { background: #333; }
+        
+        #status { margin-top: 12px; font-size: 13px; font-weight: 600; text-align: center; }
+        
+        table { 
+            width: 100%; 
+            border-collapse: collapse; 
+            margin-top: 15px; 
+            background: #fff; 
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            font-size: 12px;
+        }
+        th, td { padding: 12px; text-align: left; border-bottom: 1px solid #eee; }
+        th { background-color: #fafafa; font-weight: 600; color: #555; }
+        tr:hover { background-color: #fcfcfc; }
+        
+        /* Category Badge Styling */
+        .category-badge {
+            background: #eef2ff;
+            color: #4338ca;
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-size: 11px;
+            font-weight: 600;
+            white-space: nowrap;
+        }
+        .mrp-text { font-weight: 700; color: #059669; }
+    </style>
+</head>
+<body>
+   <div class="header">
+    <img src="icon128.png" class="main-logo" alt="Blinkit AI Logo">
+    <h2>Blinkit AI Onboarding</h2>
+    <p>Vendor Catalog Extraction Engine</p>
+</div>
+
+    <div class="upload-section">
+        <input type="file" id="pdf-upload" accept="application/pdf" />
+        <button id="upload-btn" class="blinkit-btn">Extract Products to Database</button>
+        <div id="status"></div>
+    </div>
+    
+    <div id="results"></div>
+
+    <script src="sidepanel.js"></script>
+</body>
+</html>
