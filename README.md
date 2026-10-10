@@ -1,32 +1,83 @@
-# Blinkit AI Vendor Onboarding Pipeline 🚀
+# 📦 Universal AI Vendor Catalog Sync
 
-An end-to-end automated catalog extraction tool designed for quick-commerce operations. It converts unstructured vendor PDFs (price lists, menus, and product sheets) into clean, database-ready JSON schemas in seconds.
+A clean, intelligent assistant designed to automate how businesses handle vendor rate lists. Whether a supplier sends a clean digital PDF or a quick, handwritten photo taken on a smartphone, this platform reads the document, standardizes the catalog data, and calculates profit margins automatically.
 
-## 🛠️️ Tech Stack
-- **Backend:** Python, Flask, Flask-CORS, pdfplumber, EasyOCR (English/Hindi), Pydantic, json-repair, tenacity, Groq API (`llama-3.1-8b-instant` by default)
-- **Frontend:** Chrome Extension (Manifest V3, Side Panel API, JavaScript, HTML5, CSS3)
+---
 
-## 📐 Architecture & Workflow
-1. **Frontend Ingestion:** Sales or vendor operations teams upload a PDF via a custom Chrome Extension side-panel.
-2. **Middleware API:** A local Flask server receives a PDF or vendor menu photo. The backend extracts selectable PDF text and uses EasyOCR on photos and scanned pages, enhancing contrast and correcting image orientation before extraction.
-3. **Resilient Extraction:** Failed or empty Groq responses are retried up to three times. If Groq rejects the configured model, the backend checks the API key's available models and selects a supported fallback. Regex isolation and `json-repair` recover JSON, then Pydantic validates each chunk and applies optional-field defaults.
-4. **Dynamic UI:** The extension parses the resulting JSON and dynamically renders products with category badges and Indian Rupee (`₹`) formatting.
+### 🌟 Key Capabilities
 
-## ⚙️ How to Run Locally
+• 📄 **Multi-Format Reading**
 
-### 1. Run the Python Backend
-\`\`\`bash
+Processes digital PDFs and camera photos seamlessly. Includes built-in image compression to resize high-resolution photos, dropping scan times from minutes down to seconds.
+
+• 🧠 **Resilient AI Extraction**
+
+Uses fast natural language models to extract item details and prices. Built with text chunking and background retry logic to handle large documents reliably without crashing.
+
+• 🎯 **Smart Product Matching**
+
+Compares messy vendor item names against your company's official Master SKU database. Automatically maps recognized products and safely flags unknown items as new SKUs.
+
+• 📈 **Dynamic Profit Engine**
+
+Acts as a real-time financial helper. Applies company target margin rules to calculate wholesale cost, recommended selling prices, and projected profit, using visual indicators (🟢, 🟡, 🔴) to highlight margin health.
+
+• ✏️ **Interactive Operator Dashboard**
+
+Provides an Excel-like table where team members can double-check AI outputs, adjust pricing, resolve typos, and export clean CSV or JSON files with one click.
+
+---
+
+### 🛠️ Tech Stack & Tools
+
+• **Frontend & Operations UI:** Streamlit (Interactive Web Dashboard & Editable Tables)
+
+• **File Ingestion:** EasyOCR (Multilingual Image Processing) & PDFPlumber (Digital PDF Extraction)
+
+• **AI & Processing Engine:** Groq API (Llama 3.1 8B for JSON Parsing) & RapidFuzz (String Matching)
+
+• **Resilience & Validation:** Pydantic (Data Schema Enforcement) & Tenacity (Automated Retry Logic)
+
+---
+
+### 🔄 Step-by-Step Workflow
+
+1. 📥 **Upload:** Upload a vendor menu or rate list (PDF or Image) and optionally attach your company's Master Catalog CSV.
+2. 🔍 **Scan & Extract:** The engine optimizes the file, runs OCR text extraction, and uses AI to pull out item names and quoted rates.
+3. ⚙️ **Match & Price:** Extracted items are matched against your master catalog while the system calculates cost prices, selling prices, and profit margins.
+4. 📊 **Review & Export:** Review the populated dashboard, make any manual tweaks directly in the table, and download the standardized data file.
+
+---
+
+### 🚀 Getting Started
+
+1. **Install Dependencies:**
+```bash
 pip install -r requirements.txt
-python catalog_engine.py
-\`\`\`
 
-Set `GROQ_API_KEY` before running the backend. The pinned `httpx` version keeps
-the Groq SDK compatible with its client constructor. Override the default model with
-`GROQ_MODEL` or pass a model name to `extract_catalog_from_text()`.
-The first OCR run downloads EasyOCR's detection and English/Hindi recognition models.
+```
 
-### 2. Load the Chrome Extension
-1. Open Google Chrome and go to `chrome://extensions/`
-2. Enable **Developer mode** in the top right.
-3. Click **Load unpacked** and select the `Blinkit_Extension` folder.
-4. Open the extension side-panel in your browser, upload a sample vendor PDF, and extract!
+
+2. **Configure API Keys:**
+Create a `.env` file in the root folder and add your Groq API key:
+```env
+GROQ_API_KEY=your_api_key_here
+
+```
+
+
+3. **Launch the Dashboard:**
+```bash
+streamlit run streamlit_app.py
+
+```
+
+
+
+---
+
+### 🔮 Future Roadmap
+
+• 🗺️ **Semantic Vector Search:** Upgrading string matching to vector embeddings to support cross-lingual catalog matching (such as Hindi item names to English master SKUs).
+
+• ⚡ **Enterprise API Service:** Wrapping the ingestion engine into FastAPI REST endpoints for direct integration into enterprise ERP systems.
