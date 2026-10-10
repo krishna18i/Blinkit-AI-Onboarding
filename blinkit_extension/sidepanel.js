@@ -4,7 +4,7 @@ document.getElementById('upload-btn').addEventListener('click', async () => {
     const resultsDiv = document.getElementById('results');
 
     if (!fileInput.files.length) {
-        statusDiv.innerText = "Please select a vendor PDF first.";
+        statusDiv.innerText = "Please select a vendor PDF or photo first.";
         statusDiv.style.color = "#dc2626";
         return;
     }
@@ -13,7 +13,7 @@ document.getElementById('upload-btn').addEventListener('click', async () => {
     const formData = new FormData();
     formData.append('file', file);
 
-    statusDiv.innerText = "Processing via Qwen AI... (Takes ~3 seconds)";
+    statusDiv.innerText = "Processing vendor catalog with Blinkit AI...";
     statusDiv.style.color = "#0052cc";
     resultsDiv.innerHTML = "";
 
@@ -23,9 +23,10 @@ document.getElementById('upload-btn').addEventListener('click', async () => {
             body: formData
         });
 
-        if (!response.ok) throw new Error("API Request Failed. Is the Flask server running?");
-
         const data = await response.json();
+        if (!response.ok) {
+            throw new Error(data.error || "Could not process the uploaded file.");
+        }
         
         // Setup Indian Rupee Formatter
         const rupeeFormatter = new Intl.NumberFormat('en-IN', {
